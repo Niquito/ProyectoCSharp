@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="PruebaVehiculos.Classes" assembly="PruebaVehiculos">
+  <!--
+  <class name="Vehiculo">
+    <id name="Id">
+      <generator class="sequence">
+        <param name="sequence">vehiculosequence_id</param>
+      </generator>
+    </id>
+    <discriminator column="TipoVehiculo" type="String"/>
+    <property name="Patente"/>
+    <property name="NumeroMotor"/>
+
+    <subclass name="Automovil" discriminator-value="Auto">
+      <property name="Tipo"/>
+      <property name="TieneAirbag"/>
+    </subclass>
+    <subclass name="Moto" discriminator-value="Moto">
+      <property name="CantidadCilindros"/>
+      <property name="Cilindrada"/>
+      <property name="TieneMonoshock"/>
+    </subclass>
+
+  </class>
+-->
+
+  <!--
+  <class name="Vehiculo">
+    <id name="Id">
+      <generator class="sequence">
+        <param name="sequence">vehiculosequence_id</param>
+      </generator>
+    </id>
+    <property name="Patente"/>
+    <property name="NumeroMotor"/>
+
+    <union-subclass name="Automovil">
+        <property name="Tipo"/>
+        <property name="TieneAirbag"/>
+    </union-subclass>
+    <union-subclass name="Moto">
+    
+      <property name="CantidadCilindros"/>
+      <property name="Cilindrada"/>
+      <property name="TieneMonoshock"/>
+    
+    </union-subclass>
+</class>
+-->
+
+
+  <class name="Vehiculo">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="IdMarca"/>
+    <property name="Patente"/>
+    <property name="NroMotor"/>
+    <property name="NroChasis"/>
+    <property name="ValorComercial"/>
+    <property name="TieneRastreador"/>
+
+    <joined-subclass name="Moto" >
+      <key column="vehiculo_id"/>
+      <property name="CantidadCilindros"/>
+      <property name="Cilindrada"/>
+      <property name="TieneMonoshock"/>
+    </joined-subclass>
+    <joined-subclass name="Automovil">
+      <key column="vehiculo_id"/>
+      <property name="Tipo"/>
+      <property name="TieneAirbag"/>
+    </joined-subclass>
+  </class>
+
+</hibernate-mapping>
